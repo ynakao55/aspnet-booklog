@@ -79,21 +79,20 @@ docker run --rm -p 8080:8080 \
   -e DATABASE_URL="postgresql://<user>:<pass>@<host>:<port>/<db>" \
   aspnet-booklog
 # → http://localhost:8080
-Render へのデプロイ（Docker）
-GitHub に push
 
-Render ダッシュボード → New + → Web Service → リポジトリ選択
+---
 
-Environment に DATABASE_URL を設定（Render の Postgres 接続文字列）
+## Render へのデプロイ（Docker）
+1.GitHub に push
+2.Render ダッシュボード → New + → Web Service → リポジトリ選択
+3.Environment に DATABASE_URL を設定（Render の Postgres 接続文字列）
+4.Dockerfile は自動検出、Start は既定 ENTRYPOINT を使用
+5.初回起動時に 自動マイグレーション が走ります
 
-Dockerfile は自動検出、Start は既定 ENTRYPOINT を使用
+> ログに localhost:5432 が出たら、DATABASE_URL の未設定/綴りを確認。
 
-初回起動時に 自動マイグレーション が走ります
+## エンドポイント
+- /：一覧 + フィルタ（All / Unread / Reading / Done）
 
-ログに localhost:5432 が出たら、DATABASE_URL の未設定/綴りを確認。
-
-エンドポイント
-/：一覧 + フィルタ（All / Unread / Reading / Done）
-
-ライセンス
+## ライセンス
 MIT License
