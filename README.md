@@ -80,7 +80,7 @@ docker build -t aspnet-booklog .
 docker run --rm -p 8080:8080 \
   -e DATABASE_URL="postgresql://<user>:<pass>@<host>:<port>/<db>" \
   aspnet-booklog
-# → http://localhost:8080
+#### → http://localhost:8080
 
 ---
 
