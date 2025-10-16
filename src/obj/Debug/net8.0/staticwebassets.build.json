@@ -1,0 +1,50 @@
+{
+  "Version": 1,
+  "Hash": "Yb6ywrFNVRGPgtGqxv3LqMN7rDJYlew6d3ZMLESfZ+A=",
+  "Source": "aspnet-booklog",
+  "BasePath": "_content/aspnet-booklog",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [
+    {
+      "Identity": "/src/obj/Debug/net8.0/scopedcss/bundle/aspnet-booklog.styles.css",
+      "SourceId": "aspnet-booklog",
+      "SourceType": "Computed",
+      "ContentRoot": "/src/obj/Debug/net8.0/scopedcss/bundle/",
+      "BasePath": "_content/aspnet-booklog",
+      "RelativePath": "aspnet-booklog.styles.css",
+      "AssetKind": "All",
+      "AssetMode": "CurrentProject",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "ScopedCss",
+      "AssetTraitValue": "ApplicationBundle",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "/src/obj/Debug/net8.0/scopedcss/bundle/aspnet-booklog.styles.css"
+    },
+    {
+      "Identity": "/src/obj/Debug/net8.0/scopedcss/projectbundle/aspnet-booklog.bundle.scp.css",
+      "SourceId": "aspnet-booklog",
+      "SourceType": "Computed",
+      "ContentRoot": "/src/obj/Debug/net8.0/scopedcss/projectbundle/",
+      "BasePath": "_content/aspnet-booklog",
+      "RelativePath": "aspnet-booklog.bundle.scp.css",
+      "AssetKind": "All",
+      "AssetMode": "Reference",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "ScopedCss",
+      "AssetTraitValue": "ProjectBundle",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "/src/obj/Debug/net8.0/scopedcss/projectbundle/aspnet-booklog.bundle.scp.css"
+    }
+  ]
+}

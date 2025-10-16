@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "/src/obj/Debug/net8.0/scopedcss/projectbundle/aspnet-booklog.bundle.scp.css",
+      "PackagePath": "staticwebassets/aspnet-booklog.bundle.scp.css"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.aspnet-booklog.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.aspnet-booklog.props",
+      "PackagePath": "build\\aspnet-booklog.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.aspnet-booklog.props",
+      "PackagePath": "buildMultiTargeting\\aspnet-booklog.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.aspnet-booklog.props",
+      "PackagePath": "buildTransitive\\aspnet-booklog.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

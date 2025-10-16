@@ -1,0 +1,54 @@
+﻿@page
+@model aspnet_booklog.Pages.IndexModel
+@{
+    ViewData["Title"] = "Books";
+}
+<div class="container" style="max-width:900px;margin:30px auto;">
+  <h1>Books</h1>
+
+  <form method="post" asp-page-handler="Add" style="margin:16px 0;padding:12px;background:#f3f0fa;border-radius:8px;">
+    <div>
+      <label>Title</label>
+      <input asp-for="NewBook.Title" required />
+      <label>Author</label>
+      <input asp-for="NewBook.Author" />
+      <label>Status</label>
+      <select asp-for="NewBook.Status">
+        <option>unread</option><option>reading</option><option>done</option>
+      </select>
+      <button type="submit">Add</button>
+    </div>
+    <div style="margin-top:8px;">
+      <label>Note</label>
+      <input asp-for="NewBook.Note" style="width:100%;" maxlength="500" />
+    </div>
+    <span asp-validation-summary="ModelOnly"></span>
+  </form>
+
+  <table style="width:100%;border-collapse:collapse;">
+    <thead><tr>
+      <th style="text-align:left;border-bottom:1px solid #ddd;">Title</th>
+      <th style="text-align:left;border-bottom:1px solid #ddd;">Author</th>
+      <th style="text-align:left;border-bottom:1px solid #ddd;">Status</th>
+      <th style="text-align:left;border-bottom:1px solid #ddd;">Note</th>
+      <th style="border-bottom:1px solid #ddd;">Action</th>
+    </tr></thead>
+    <tbody>
+            @foreach (var b in Model.Books)
+            {
+          <tr>
+            <td>@b.Title</td>
+            <td>@b.Author</td>
+            <td>@b.Status</td>
+            <td>@(string.IsNullOrEmpty(b.Note) ? "-" : (b.Note.Length > 20 ? b.Note[..20] + "…" : b.Note))</td>
+            <td>
+              <form method="post" asp-page-handler="Delete">
+                <input type="hidden" name="id" value="@b.Id" />
+                <button type="submit" style="color:#b00;">Delete</button>
+              </form>
+            </td>
+          </tr>
+            }
+    </tbody>
+  </table>
+</div>
