@@ -70,7 +70,10 @@ docker run --rm -v "$PWD/src:/src" -w /src mcr.microsoft.com/dotnet/sdk:8.0 bash
   dotnet tool restore
   dotnet ef migrations add InitialCreate --output-dir Migrations
 '
-2) ビルド & 起動
+
+---
+
+### 2) ビルド & 起動
 bash
 コードをコピーする
 docker build -t aspnet-booklog .
