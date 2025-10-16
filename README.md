@@ -60,7 +60,6 @@ yaml
 ## ローカル実行（Docker）
 
 ### 1) マイグレーション作成（未作成の場合）
-```bash
 cd aspnet-booklog
 
 docker run --rm -v "$PWD/src:/src" -w /src mcr.microsoft.com/dotnet/sdk:8.0 bash -lc '
