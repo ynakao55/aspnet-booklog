@@ -37,9 +37,6 @@ aspnet-booklog/
 ├─ Dockerfile
 └─ .dockerignore
 
-yaml
-コードをコピーする
-
 ---
 
 ## 依存パッケージ（NuGet）
