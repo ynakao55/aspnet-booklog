@@ -23,19 +23,19 @@
 ---
 
 ## プロジェクト構成（抜粋）
-aspnet-booklog/
-├─ src/
-│ ├─ aspnet-booklog.csproj
-│ ├─ Program.cs
-│ ├─ Data/AppDbContext.cs
-│ ├─ Models/Book.cs
-│ ├─ Pages/
-│ │ ├─ Index.cshtml.cs
-│ │ ├─ Index.cshtml
-│ │ └─ Shared/_Layout.cshtml
-│ └─ Migrations/ # ← ef migrations 生成物（コミット推奨）
-├─ Dockerfile
-└─ .dockerignore
+aspnet-booklog/  
+├─ src/  
+│ ├─ aspnet-booklog.csproj  
+│ ├─ Program.cs  
+│ ├─ Data/AppDbContext.cs  
+│ ├─ Models/Book.cs  
+│ ├─ Pages/  
+│ │ ├─ Index.cshtml.cs  
+│ │ ├─ Index.cshtml  
+│ │ └─ Shared/_Layout.cshtml  
+│ └─ Migrations/ # ← ef migrations 生成物（コミット推奨）  
+├─ Dockerfile  
+└─ .dockerignore  
 
 ---
 
@@ -57,6 +57,8 @@ aspnet-booklog/
 ## ローカル実行（Docker）
 
 ### 1) マイグレーション作成（未作成の場合）
+bash  
+  
 cd aspnet-booklog
 
 docker run --rm -v "$PWD/src:/src" -w /src mcr.microsoft.com/dotnet/sdk:8.0 bash -lc '
@@ -70,25 +72,25 @@ docker run --rm -v "$PWD/src:/src" -w /src mcr.microsoft.com/dotnet/sdk:8.0 bash
 ---
 
 ### 2) ビルド & 起動
-bash
-コードをコピーする
-docker build -t aspnet-booklog .
-
-docker run --rm -p 8080:8080 \
-  -e DATABASE_URL="postgresql://<user>:<pass>@<host>:<port>/<db>" \
-  aspnet-booklog
-#### → http://localhost:8080
+bash  
+  
+docker build -t aspnet-booklog .  
+  
+docker run --rm -p 8080:8080 \  
+  -e DATABASE_URL="postgresql://<user>:<pass>@<host>:<port>/<db>" \  
+  aspnet-booklog  
+#### → http://localhost:8080  
 
 ---
 
 ## Render へのデプロイ（Docker）
-1.GitHub に push
-2.Render ダッシュボード → New + → Web Service → リポジトリ選択
-3.Environment に DATABASE_URL を設定（Render の Postgres 接続文字列）
-4.Dockerfile は自動検出、Start は既定 ENTRYPOINT を使用
-5.初回起動時に 自動マイグレーション が走ります
+1.GitHub に push  
+2.Render ダッシュボード → New + → Web Service → リポジトリ選択  
+3.Environment に DATABASE_URL を設定（Render の Postgres 接続文字列）  
+4.Dockerfile は自動検出、Start は既定 ENTRYPOINT を使用  
+5.初回起動時に 自動マイグレーション が走ります  
 
-> ログに localhost:5432 が出たら、DATABASE_URL の未設定/綴りを確認。
+> ログに localhost:5432 が出たら、DATABASE_URL の未設定/綴りを確認。  
 
 ## エンドポイント
 - /：一覧 + フィルタ（All / Unread / Reading / Done）
