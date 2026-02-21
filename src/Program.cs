@@ -65,7 +65,35 @@ static string ToNpgsqlConnectionString(string input)
             Password = userInfo.Length > 1 ? userInfo[1] : ""
         };
         // Render のマネージド PG は基本 SSL 必須
-        builder.SslMode = SslMode.Require;
+        //builder.SslMode = SslMode.Require;
+
+// 例: builder = new NpgsqlConnectionStringBuilder { ... };
+var sslEnv = (Environment.GetEnvironmentVariable("DB_SSLMODE") ?? "").Trim().ToLowerInvariant();
+
+if (sslEnv == "disable")
+{
+    builder.SslMode = SslMode.Disable;
+}
+else if (sslEnv == "prefer")
+{
+    builder.SslMode = SslMode.Prefer;
+}
+else if (sslEnv == "require")
+{
+    builder.SslMode = SslMode.Require;
+}
+else
+{
+    // 指定が無い場合はホスト名で自動判定（docker-compose の db / localhost はSSLなし）
+    if (builder.Host == "db" || builder.Host == "localhost" || builder.Host == "127.0.0.1")
+        builder.SslMode = SslMode.Disable;   // ← DockerのPostgres向け
+    else
+        builder.SslMode = SslMode.Require;   // ← Render等のマネージドDB向け
+}
+
+// ついでに（SSL使う時に証明書検証を緩める必要がある環境なら）
+// builder.TrustServerCertificate = true;
+
         builder.TrustServerCertificate = true; // 証明書検証を簡易化
         return builder.ToString();
     }

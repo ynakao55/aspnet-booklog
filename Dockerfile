@@ -12,6 +12,7 @@ ENV ASPNETCORE_URLS=http://0.0.0.0:${PORT}
 WORKDIR /app
 COPY --from=build /app/publish ./
 EXPOSE 8080
+ENV ASPNETCORE_URLS=http://0.0.0.0:8080
 # Render Ç™ PORT ÇìnÇ∑ÅBñ≥ÇØÇÍÇŒ 8080 Ç≈ë“ÇøéÛÇØ
 ENV PORT=8080
 ENTRYPOINT ["dotnet", "aspnet-booklog.dll"]
