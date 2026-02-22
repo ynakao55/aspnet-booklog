@@ -1,7 +1,9 @@
 # ASP.NET Booklog — 読書ログ（ASP.NET Core + EF Core + PostgreSQL + Docker + Render）
 
 本の **タイトル / 著者 / メモ / ステータス（Unread/Reading/Done）** を管理する読書ログアプリです。  
-**ASP.NET Core 8（Razor Pages） + EF Core + PostgreSQL**。Docker で動かし、Render.com にそのままデプロイできます。
+**ASP.NET Core 8（Razor Pages） + EF Core + PostgreSQL**
+
+ローカル（Docker）で実行する方法と、公開URLから試す方法を記載します。
 
 ---
 
@@ -54,48 +56,104 @@ aspnet-booklog/
 
 ---
 
-## ローカル実行（Docker）
+## ローカルで実行する方法（Docker / WSL）
 
-### 1) マイグレーション作成（未作成の場合）
-bash  
-  
+### 前提
+以下がインストール・設定済みであることを前提とします。
+
+- WSL（Windows Subsystem for Linux）
+- Docker Desktop
+- WSL と Docker の連携設定（WSL integration）が有効
+
+---
+
+### 1. Git をインストール（未インストールの場合）
+
+```bash
+sudo apt update
+sudo apt install -y git
+```
+
+---
+
+### 2. リポジトリをクローン
+
+#### Public リポジトリ（HTTPS）
+```bash
+git clone https://github.com/ynakao55/aspnet-booklog.git
 cd aspnet-booklog
-
-docker run --rm -v "$PWD/src:/src" -w /src mcr.microsoft.com/dotnet/sdk:8.0 bash -lc '
-  set -e
-  test -f /src/.config/dotnet-tools.json || dotnet new tool-manifest
-  dotnet tool install dotnet-ef || true
-  dotnet tool restore
-  dotnet ef migrations add InitialCreate --output-dir Migrations
-'
+```
 
 ---
 
-### 2) ビルド & 起動
-bash  
-  
-docker build -t aspnet-booklog .  
-  
-docker run --rm -p 8080:8080 \  
-  -e DATABASE_URL="postgresql://<user>:<pass>@<host>:<port>/<db>" \  
-  aspnet-booklog  
-#### → http://localhost:8080  
+### 3. 起動（Docker Compose）
+
+#### 通常の起動 / 停止
+```bash
+docker compose up -d --build
+docker compose down
+```
+
+#### 確実に作り直して起動したい場合（推奨）
+コンテナ・ボリューム・不要な関連コンテナも整理してから再作成します。
+
+```bash
+docker compose down -v --remove-orphans
+docker compose up -d --build --force-recreate
+```
 
 ---
 
-## Render へのデプロイ（Docker）
-1.GitHub に push  
-2.Render ダッシュボード → New + → Web Service → リポジトリ選択  
-3.Environment に DATABASE_URL を設定（Render の Postgres 接続文字列）  
-4.Dockerfile は自動検出、Start は既定 ENTRYPOINT を使用  
-5.初回起動時に 自動マイグレーション が走ります  
+### 4. ブラウザで開く
 
-> ログに localhost:5432 が出たら、DATABASE_URL の未設定/綴りを確認。  
+起動後、以下のURLをブラウザで開いてください。
 
-## エンドポイント
-- /：一覧 + フィルタ（All / Unread / Reading / Done）
+- http://localhost:8080
+
+---
+
+## 公開URLから試す方法（Web）
+
+以下のURLからアクセスできます。
+
+- https://aspnet-booklog.ysnko.com
+
+### 初回アクセス時の流れ
+1. 上記リンクを開く
+2. ログイン方法で **メール（PINコード）** を選択
+3. メールアドレスを入力
+4. 届いたメールに記載された **PINコード** を確認
+5. PINコードを入力してログイン
+
+### なぜPINが必要？
+このサイトは Cloudflare Access により保護されており、  
+**本人確認のためにワンタイムPIN（使い捨てコード）** を使用しています。  
+パスワードを作成・管理しなくても、メールで簡単に本人確認できます。
+
+---
+
+## ローカル実行時の補足（トラブルシュート）
+
+### 起動しているか確認
+```bash
+docker compose ps
+```
+
+### ログを確認
+```bash
+docker compose logs -f
+```
+
+### 画面が開かない / 反映されない場合
+```bash
+docker compose down -v --remove-orphans
+docker compose up -d --build --force-recreate
+```
+
+---
 
 ## ライセンス
 
 MIT License
 
+---
