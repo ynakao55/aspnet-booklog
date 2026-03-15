@@ -1,37 +1,32 @@
 using Microsoft.EntityFrameworkCore;
-using Npgsql;
 using aspnet_booklog.Data;
-using aspnet_booklog.Models;
-using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// --- PostgreSQL Ú‘±•¶š—ñiRender ‚Ì DATABASE_URL ‘Î‰j ---
-string? rawUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-// ƒ[ƒJƒ‹—p‚ÌŠù’èi•K—v‚È‚ç .env ‚È‚Ç‚Åã‘‚«j
-if (string.IsNullOrWhiteSpace(rawUrl))
-{
-    rawUrl = "Host=localhost;Port=5432;Database=booklog;Username=postgres;Password=postgres";
-}
-// Render ‚Ì postgres:// Œ`®‚à Npgsql Œ`®‚É•ÏŠ·ASSL •K{
-// —ájpostgres://USER:PWD@HOST:PORT/DB ¨ Host=HOST;Port=PORT;Database=DB;Username=USER;Password=PWD;SSL Mode=Require;Trust Server Certificate=true
-var connString = ToNpgsqlConnectionString(rawUrl);
+var connString = BuildMySqlConnectionString();
 
-builder.Services.AddDbContext<AppDbContext>(opt =>
-    opt.UseNpgsql(connString));
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseMySql(
+        connString,
+        ServerVersion.AutoDetect(connString),
+        mySqlOptions =>
+        {
+            mySqlOptions.EnableRetryOnFailure();
+        });
+});
 
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
-// DB ©“®ƒ}ƒCƒOƒŒ[ƒVƒ‡ƒ“i–{”Ô/ŒŸØ‚Åg‚¢‚â‚·‚­j
+// èµ·å‹•æ™‚ã«ãƒã‚¤ã‚°ãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³é©ç”¨
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.Migrate();
 }
 
-// Minimal ‚Èƒwƒ‹ƒXƒ`ƒFƒbƒN
 app.MapGet("/health", () => Results.Ok("OK"));
 
 if (!app.Environment.IsDevelopment())
@@ -43,59 +38,51 @@ app.UseStaticFiles();
 app.UseRouting();
 app.MapRazorPages();
 
-// Render ‚Ì $PORT ‚ÉƒoƒCƒ“ƒhiDockerfile‚Å‚àİ’è‚·‚é‚ª•ÛŒ¯j
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 app.Urls.Add($"http://0.0.0.0:{port}");
 
 app.Run();
 
-static string ToNpgsqlConnectionString(string input)
+static string BuildMySqlConnectionString()
 {
-    if (input.StartsWith("postgres://", StringComparison.OrdinalIgnoreCase) ||
-        input.StartsWith("postgresql://", StringComparison.OrdinalIgnoreCase))
+    // 1) DATABASE_URL ã‚’æœ€å„ªå…ˆ
+    var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+    if (!string.IsNullOrWhiteSpace(databaseUrl))
     {
-        var uri = new Uri(input.Replace("postgres://", "postgresql://"));
-        var userInfo = uri.UserInfo.Split(':', 2);
-        var builder = new NpgsqlConnectionStringBuilder
-        {
-            Host = uri.Host,
-            Port = uri.Port > 0 ? uri.Port : 5432,
-            Database = uri.AbsolutePath.Trim('/'),
-            Username = userInfo[0],
-            Password = userInfo.Length > 1 ? userInfo[1] : ""
-        };
-        // Render ‚Ìƒ}ƒl[ƒWƒh PG ‚ÍŠî–{ SSL •K{
-        //builder.SslMode = SslMode.Require;
-
-// —á: builder = new NpgsqlConnectionStringBuilder { ... };
-var sslEnv = (Environment.GetEnvironmentVariable("DB_SSLMODE") ?? "").Trim().ToLowerInvariant();
-
-if (sslEnv == "disable")
-{
-    builder.SslMode = SslMode.Disable;
-}
-else if (sslEnv == "prefer")
-{
-    builder.SslMode = SslMode.Prefer;
-}
-else if (sslEnv == "require")
-{
-    builder.SslMode = SslMode.Require;
-}
-else
-{
-    // w’è‚ª–³‚¢ê‡‚ÍƒzƒXƒg–¼‚Å©“®”»’èidocker-compose ‚Ì db / localhost ‚ÍSSL‚È‚µj
-    if (builder.Host == "db" || builder.Host == "localhost" || builder.Host == "127.0.0.1")
-        builder.SslMode = SslMode.Disable;   // © Docker‚ÌPostgresŒü‚¯
-    else
-        builder.SslMode = SslMode.Require;   // © Render“™‚Ìƒ}ƒl[ƒWƒhDBŒü‚¯
-}
-
-// ‚Â‚¢‚Å‚ÉiSSLg‚¤‚ÉØ–¾‘ŒŸØ‚ğŠÉ‚ß‚é•K—v‚ª‚ ‚éŠÂ‹«‚È‚çj
-// builder.TrustServerCertificate = true;
-
-        builder.TrustServerCertificate = true; // Ø–¾‘ŒŸØ‚ğŠÈˆÕ‰»
-        return builder.ToString();
+        return databaseUrl;
     }
-    return input; // ‚·‚Å‚É Npgsql Œ`®‚È‚ç‚»‚Ì‚Ü‚Ü
+
+    // 2) å€‹åˆ¥ç’°å¢ƒå¤‰æ•°ã‹ã‚‰çµ„ã¿ç«‹ã¦
+    var host = Environment.GetEnvironmentVariable("TIDB_HOST");
+    var port = Environment.GetEnvironmentVariable("TIDB_PORT") ?? "4000";
+    var database = Environment.GetEnvironmentVariable("TIDB_DATABASE") ?? "booklog";
+    var user = Environment.GetEnvironmentVariable("TIDB_USER");
+    var password = Environment.GetEnvironmentVariable("TIDB_PASSWORD");
+    var caPath = Environment.GetEnvironmentVariable("CA_PATH");
+
+    if (!string.IsNullOrWhiteSpace(host) &&
+        !string.IsNullOrWhiteSpace(user) &&
+        !string.IsNullOrWhiteSpace(password))
+    {
+        var builder = new MySqlConnector.MySqlConnectionStringBuilder
+        {
+            Server = host,
+            Port = uint.Parse(port),
+            Database = database,
+            UserID = user,
+            Password = password,
+            SslMode = MySqlConnector.MySqlSslMode.VerifyCA,
+            Pooling = true
+        };
+
+        if (!string.IsNullOrWhiteSpace(caPath))
+        {
+            builder.CertificateFile = caPath;
+        }
+
+        return builder.ConnectionString;
+    }
+
+    // 3) ãƒ­ãƒ¼ã‚«ãƒ«é–‹ç™ºç”¨
+    return "Server=localhost;Port=4000;Database=booklog;User=root;Password=;SslMode=None";
 }
