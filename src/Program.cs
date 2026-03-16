@@ -9,7 +9,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseMySql(
         connString,
-        ServerVersion.AutoDetect(connString),
+        new MySqlServerVersion(new Version(8, 0, 36)),
         mySqlOptions => mySqlOptions.EnableRetryOnFailure());
 });
 
