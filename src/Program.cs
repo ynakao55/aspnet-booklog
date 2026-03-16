@@ -10,17 +10,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(
         connString,
         ServerVersion.AutoDetect(connString),
-        mySqlOptions =>
-        {
-            mySqlOptions.EnableRetryOnFailure();
-        });
+        mySqlOptions => mySqlOptions.EnableRetryOnFailure());
 });
 
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
-// 起動時にマイグレーション適用
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -45,14 +41,12 @@ app.Run();
 
 static string BuildMySqlConnectionString()
 {
-    // 1) DATABASE_URL を最優先
     var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
     if (!string.IsNullOrWhiteSpace(databaseUrl))
     {
         return databaseUrl;
     }
 
-    // 2) 個別環境変数から組み立て
     var host = Environment.GetEnvironmentVariable("TIDB_HOST");
     var port = Environment.GetEnvironmentVariable("TIDB_PORT") ?? "4000";
     var database = Environment.GetEnvironmentVariable("TIDB_DATABASE") ?? "booklog";
@@ -60,29 +54,21 @@ static string BuildMySqlConnectionString()
     var password = Environment.GetEnvironmentVariable("TIDB_PASSWORD");
     var caPath = Environment.GetEnvironmentVariable("CA_PATH");
 
-    if (!string.IsNullOrWhiteSpace(host) &&
-        !string.IsNullOrWhiteSpace(user) &&
-        !string.IsNullOrWhiteSpace(password))
+    var csb = new MySqlConnector.MySqlConnectionStringBuilder
     {
-        var builder = new MySqlConnector.MySqlConnectionStringBuilder
-        {
-            Server = host,
-            Port = uint.Parse(port),
-            Database = database,
-            UserID = user,
-            Password = password,
-            SslMode = MySqlConnector.MySqlSslMode.VerifyCA,
-            Pooling = true
-        };
+        Server = host,
+        Port = uint.Parse(port),
+        Database = database,
+        UserID = user,
+        Password = password,
+        SslMode = MySqlConnector.MySqlSslMode.VerifyCA,
+        Pooling = true
+    };
 
-        if (!string.IsNullOrWhiteSpace(caPath))
-        {
-            builder.CertificateFile = caPath;
-        }
-
-        return builder.ConnectionString;
+    if (!string.IsNullOrWhiteSpace(caPath))
+    {
+        csb.SslCa = caPath;
     }
 
-    // 3) ローカル開発用
-    return "Server=localhost;Port=4000;Database=booklog;User=root;Password=;SslMode=None";
+    return csb.ConnectionString;
 }
