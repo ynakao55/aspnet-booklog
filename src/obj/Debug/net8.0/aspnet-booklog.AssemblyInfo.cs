@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("aspnet-booklog")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ae688ba2f3c713405b554a615517a5c7a79bb2e1")]
 [assembly: System.Reflection.AssemblyProductAttribute("aspnet-booklog")]
 [assembly: System.Reflection.AssemblyTitleAttribute("aspnet-booklog")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

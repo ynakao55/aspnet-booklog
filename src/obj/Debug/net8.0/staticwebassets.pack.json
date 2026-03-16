@@ -1,7 +1,7 @@
 {
   "Files": [
     {
-      "Id": "/src/obj/Debug/net8.0/scopedcss/projectbundle/aspnet-booklog.bundle.scp.css",
+      "Id": "/home/nakao/aspnet-booklog/src/obj/Debug/net8.0/scopedcss/projectbundle/aspnet-booklog.bundle.scp.css",
       "PackagePath": "staticwebassets/aspnet-booklog.bundle.scp.css"
     },
     {

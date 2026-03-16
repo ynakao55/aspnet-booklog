@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/src/aspnet-booklog.csproj": {}
+    "/home/nakao/aspnet-booklog/src/aspnet-booklog.csproj": {}
   },
   "projects": {
-    "/src/aspnet-booklog.csproj": {
+    "/home/nakao/aspnet-booklog/src/aspnet-booklog.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/src/aspnet-booklog.csproj",
+        "projectUniqueName": "/home/nakao/aspnet-booklog/src/aspnet-booklog.csproj",
         "projectName": "aspnet-booklog",
-        "projectPath": "/src/aspnet-booklog.csproj",
-        "packagesPath": "/root/.nuget/packages/",
-        "outputPath": "/src/obj/",
+        "projectPath": "/home/nakao/aspnet-booklog/src/aspnet-booklog.csproj",
+        "packagesPath": "/home/nakao/.nuget/packages/",
+        "outputPath": "/home/nakao/aspnet-booklog/src/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/root/.nuget/NuGet/NuGet.Config"
+          "/home/nakao/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -53,9 +53,9 @@
               "target": "Package",
               "version": "[1.19.5, )"
             },
-            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+            "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
-              "version": "[9.0.4, )"
+              "version": "[9.0.0, )"
             }
           },
           "imports": [
@@ -77,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.415/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.419/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Yb6ywrFNVRGPgtGqxv3LqMN7rDJYlew6d3ZMLESfZ+A=",
+  "Hash": "O/uL3btHdD10y1inD36YKF6dYLDT0J8H4xeRK/Rc3rg=",
   "Source": "aspnet-booklog",
   "BasePath": "_content/aspnet-booklog",
   "Mode": "Default",
@@ -9,10 +9,10 @@
   "DiscoveryPatterns": [],
   "Assets": [
     {
-      "Identity": "/src/obj/Debug/net8.0/scopedcss/bundle/aspnet-booklog.styles.css",
+      "Identity": "/home/nakao/aspnet-booklog/src/obj/Debug/net8.0/scopedcss/bundle/aspnet-booklog.styles.css",
       "SourceId": "aspnet-booklog",
       "SourceType": "Computed",
-      "ContentRoot": "/src/obj/Debug/net8.0/scopedcss/bundle/",
+      "ContentRoot": "/home/nakao/aspnet-booklog/src/obj/Debug/net8.0/scopedcss/bundle/",
       "BasePath": "_content/aspnet-booklog",
       "RelativePath": "aspnet-booklog.styles.css",
       "AssetKind": "All",
@@ -25,13 +25,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "/src/obj/Debug/net8.0/scopedcss/bundle/aspnet-booklog.styles.css"
+      "OriginalItemSpec": "/home/nakao/aspnet-booklog/src/obj/Debug/net8.0/scopedcss/bundle/aspnet-booklog.styles.css"
     },
     {
-      "Identity": "/src/obj/Debug/net8.0/scopedcss/projectbundle/aspnet-booklog.bundle.scp.css",
+      "Identity": "/home/nakao/aspnet-booklog/src/obj/Debug/net8.0/scopedcss/projectbundle/aspnet-booklog.bundle.scp.css",
       "SourceId": "aspnet-booklog",
       "SourceType": "Computed",
-      "ContentRoot": "/src/obj/Debug/net8.0/scopedcss/projectbundle/",
+      "ContentRoot": "/home/nakao/aspnet-booklog/src/obj/Debug/net8.0/scopedcss/projectbundle/",
       "BasePath": "_content/aspnet-booklog",
       "RelativePath": "aspnet-booklog.bundle.scp.css",
       "AssetKind": "All",
@@ -44,7 +44,7 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "/src/obj/Debug/net8.0/scopedcss/projectbundle/aspnet-booklog.bundle.scp.css"
+      "OriginalItemSpec": "/home/nakao/aspnet-booklog/src/obj/Debug/net8.0/scopedcss/projectbundle/aspnet-booklog.bundle.scp.css"
     }
   ]
 }

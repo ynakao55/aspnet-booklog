@@ -17,39 +17,39 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = aspnet_booklog
 build_property.RootNamespace = aspnet_booklog
-build_property.ProjectDir = /src/
+build_property.ProjectDir = /home/nakao/aspnet-booklog/src/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /src
+build_property.MSBuildProjectDirectory = /home/nakao/aspnet-booklog/src
 build_property._RazorSourceGeneratorDebug = 
 
-[/src/Pages/Error.cshtml]
+[/home/nakao/aspnet-booklog/src/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/src/Pages/Index.cshtml]
+[/home/nakao/aspnet-booklog/src/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/src/Pages/Privacy.cshtml]
+[/home/nakao/aspnet-booklog/src/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/src/Pages/Shared/_ValidationScriptsPartial.cshtml]
+[/home/nakao/aspnet-booklog/src/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/src/Pages/_ViewImports.cshtml]
+[/home/nakao/aspnet-booklog/src/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/src/Pages/_ViewStart.cshtml]
+[/home/nakao/aspnet-booklog/src/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/src/Pages/Shared/_Layout.cshtml]
+[/home/nakao/aspnet-booklog/src/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-tnjas1bdfp
